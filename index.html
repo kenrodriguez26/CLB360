@@ -514,13 +514,7 @@
   tickClock(); setInterval(tickClock, 1000);
 
   // Role
- let role = localStorage.getItem("clb_role") || "sender";
-let tx = {
-  peers: new Map(),
-  broadcasting: false
-};
-
-function setRole(r) {
+  let role = localStorage.getItem("clb_role") || "sender";
   const setRole = (r) => {
     role = r;
     localStorage.setItem("clb_role", role);
@@ -884,8 +878,8 @@ function setRole(r) {
     $("listenerList").innerHTML = items.map(x => `<span class="badge">${x}</span>`).join(" ");
   };
 
- function broadcastRoute() {
-  if (role!=="sender" || !tx.broadcasting) return;
+  const broadcastRoute = ()=>{
+    if (role!=="sender" || !tx.broadcasting) return;
     for (const [rid, p] of tx.peers){
       try{
         if (p.dc && p.dc.readyState==="open"){
@@ -896,7 +890,7 @@ function setRole(r) {
         wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"route", arrGate: route.arrGate, depGate: route.depGate } });
       }
     }
-  }
+  };
 
   const startSender = async ()=>{
     if (tx.broadcasting) return;
