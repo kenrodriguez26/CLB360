@@ -554,13 +554,10 @@
   window.addEventListener("pointerdown", ()=>{ if(!audioArmed) armAudio(); }, {once:true});
 
   // Settings
-  const defaultSigUrl = ()=>{
-    const host = location.hostname;
-    const proto = location.protocol==="https:" ? "wss" : "ws";
-    if (!host) return "";
-    const port = location.port || "8787";
-    return `${proto}://${host}:${port}/ws`;
-  };
+ const defaultSigUrl = ()=>{
+  const proto = location.protocol === "https:" ? "wss" : "ws";
+  return `${proto}://${location.host}/ws`;
+};
   const loadSettings = ()=>{
     const sig = localStorage.getItem("clb_sig") || defaultSigUrl();
     $("sigUrlSender").value = sig;
@@ -1170,3 +1167,4 @@
 </script>
 </body>
 </html>
+
