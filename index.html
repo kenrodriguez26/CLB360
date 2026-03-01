@@ -515,7 +515,7 @@
 
   // Role
   let role = localStorage.getItem("clb_role") || "sender";
-  const setRole = (r) => {
+  function setRole = (r) => {
     role = r;
     localStorage.setItem("clb_role", role);
     $("btnRoleSender").classList.toggle("active", role==="sender");
