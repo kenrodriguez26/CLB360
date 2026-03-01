@@ -873,18 +873,24 @@ loadSettings();
   });
 
   // Sender: routing UI -> broadcast route updates
- function renderRouteUIStatus() {
+// 1. La variable de estado (solo una vez)
+let route = { arrGate: 1, depGate: 1 };
+
+// 2. La función de actualización de interfaz
+function renderRouteUIStatus() {
     route.arrGate = clamp(parseInt($("arrGate").value, 10) || 1, 1, 4);
     route.depGate = clamp(parseInt($("depGate").value, 10) || 1, 1, 4);
-    renderRouteStatus();
-    broadcastRoute(); // Ahora no dará error
-    applyReceiverRouting();
+    
+    if (typeof renderRouteStatus === "function") renderRouteStatus();
+    broadcastRoute(); 
+    if (typeof applyReceiverRouting === "function") applyReceiverRouting();
 }
 
+// 3. La función de envío (LA QUE ESTABA DUPLICADA)
 function broadcastRoute() {
     wsSend({
         type: "signal",
-        to: "all", // o la lógica que uses para enviar a todos
+        to: "all",
         data: { kind: "route", arrGate: route.arrGate, depGate: route.depGate }
     });
 }
