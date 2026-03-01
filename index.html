@@ -516,6 +516,11 @@
   // Role
 let role = localStorage.getItem("clb_role") || "sender";
 
+let tx = {
+  peers: new Map(),
+  broadcasting: false
+};
+
 function setRole(r) {
   role = r;
   localStorage.setItem("clb_role", role);
@@ -856,10 +861,6 @@ function setRole(r) {
   renderRouteUIStatus();
 
   // Sender: WebRTC one-to-many
-  let tx = {
-  peers: new Map(),
-  broadcasting: false
-};
   const renderListenerList = ()=>{
     const n = tx.peers.size;
     setDot($("rxDot"), n>0);
@@ -873,7 +874,6 @@ function setRole(r) {
   };
 
   function broadcastRoute() {
-  if (typeof tx === "undefined") return;
   if (role!=="sender" || !tx.broadcasting) return;
     for (const [rid, p] of tx.peers){
       try{
