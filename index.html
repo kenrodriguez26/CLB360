@@ -608,21 +608,48 @@ loadSettings();
     setDot($("rxWsDot"), on); $("rxWsText").textContent = on ? "WS: Connected" : "WS: Disconnected";
   };
   const wsSend = (obj)=>{ if(ws && ws.readyState===1) ws.send(JSON.stringify(obj)); };
-  const wsConnect = (url, room, joinRole, name)=>{
-    return new Promise((resolve,reject)=>{
-      if(!url) return reject(new Error("Missing signaling URL"));
-      ws = new WebSocket(url);
-      setWsStatus(false);
-      ws.onopen = ()=>{ setWsStatus(true); ws.send(JSON.stringify({type:"join", role:joinRole, room, name})); resolve(); };
-      ws.onerror = ()=>setWsStatus(false);
-      ws.onclose = ()=>{
+  const wsConnect = (url, room, joinRole, name) => {
+  return new Promise((resolve, reject) => {
+    if (!url) return reject(new Error("Missing signaling URL"));
+
+    // CORRECCIÓN CRÍTICA: 
+    // Si la URL no tiene protocolo, se lo ponemos. 
+    // Si estás en Railway (HTTPS), debe ser wss://
+    let finalUrl = url;
+    if (!finalUrl.startsWith('ws')) {
+        const proto = location.protocol === 'https:' ? 'wss://' : 'ws://';
+        finalUrl = proto + finalUrl;
+    }
+
+    console.log("Intentando conectar a:", finalUrl);
+    ws = new WebSocket(finalUrl);
+    
+    setWsStatus(false);
+
+    ws.onopen = () => { 
+        console.log("¡Conexión establecida!");
+        setWsStatus(true); 
+        ws.send(JSON.stringify({type:"join", role:joinRole, room, name})); 
+        resolve(); 
+    };
+
+    ws.onerror = (err) => {
+        console.error("Error de WebSocket:", err);
         setWsStatus(false);
-        ws=null; wsId=null; wsRoom=null; senderId=null;
-        if(role==="sender") stopSender(false); else rxDisconnect(false);
-      };
-      ws.onmessage = (ev)=>{ const msg=safeJson(ev.data); if(msg) handleWsMessage(msg); };
-    });
-  };
+    };
+
+    ws.onclose = () => {
+        setWsStatus(false);
+        ws = null;
+        console.log("Conexión cerrada");
+    };
+
+    ws.onmessage = (ev) => { 
+        const msg = safeJson(ev.data); 
+        if(msg) handleWsMessage(msg); 
+    };
+  });
+};
 
   const iceServersFor = (preset, turnJsonText)=>{
     if (preset==="lan") return [];
