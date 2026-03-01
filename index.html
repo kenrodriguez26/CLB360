@@ -856,11 +856,10 @@ function setRole(r) {
   renderRouteUIStatus();
 
   // Sender: WebRTC one-to-many
-  const tx = {
-    peers: new Map(), // rid -> {pc, dc}
-    broadcasting: false,
-  };
-
+  let tx = {
+  peers: new Map(),
+  broadcasting: false
+};
   const renderListenerList = ()=>{
     const n = tx.peers.size;
     setDot($("rxDot"), n>0);
@@ -874,7 +873,8 @@ function setRole(r) {
   };
 
   function broadcastRoute() {
-    if (role!=="sender" || !tx.broadcasting) return;
+  if (typeof tx === "undefined") return;
+  if (role!=="sender" || !tx.broadcasting) return;
     for (const [rid, p] of tx.peers){
       try{
         if (p.dc && p.dc.readyState==="open"){
