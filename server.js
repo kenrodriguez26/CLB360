@@ -33,8 +33,9 @@ const server = http.createServer((req, res) => {
 // --- 2. Servidor de Señalización (WebSockets) ---
 const wss = new WebSocket.Server({ noServer: true });
 
-// Manejar el "Upgrade" de HTTP a WebSocket
+// Busca esta parte en tu server.js y déjala así:
 server.on("upgrade", (req, socket, head) => {
+    // Esto aceptará conexiones en la raíz / y también en /ws
     wss.handleUpgrade(req, socket, head, (ws) => {
         wss.emit("connection", ws, req);
     });
