@@ -514,7 +514,7 @@
   tickClock(); setInterval(tickClock, 1000);
 
   // Role
-  function setRole(r) => {
+  function setRole(r) {
   role = r;
   localStorage.setItem("clb_role", role);
   $("btnRoleSender").classList.toggle("active", role==="sender");
@@ -523,7 +523,6 @@
   $("receiverOnly").classList.toggle("hidden", role!=="receiver");
   if (role==="sender") rxDisconnect(true); else stopSender(true);
 }
-
   // AudioContext
   let ctx=null, masterGain=null, limiter=null, audioArmed=false;
   const setDot = (el,on)=>{ el.classList.toggle("ok",!!on); el.classList.toggle("bad",!on); };
