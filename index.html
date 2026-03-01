@@ -553,24 +553,33 @@
   };
   window.addEventListener("pointerdown", ()=>{ if(!audioArmed) armAudio(); }, {once:true});
 
-  // Settings
-  const defaultSigUrl = ()=>{
+// 1. Definimos la función con el nombre correcto
+const getDefaultSignalingUrl = () => {
+    const proto = location.protocol === "https:" ? "wss" : "ws";
     const host = location.hostname;
-    const proto = location.protocol==="https:" ? "wss" : "ws";
-    if (!host) return "";
-    const port = location.port || "8787";
-    return `${proto}://${host}:${port}/ws`;
-  };
-  const loadSettings = ()=>{
-    const sig = localStorage.getItem("clb_sig") || defaultSigUrl();
+    if (host === 'localhost' || host === '127.0.0.1') {
+        return `${proto}://${host}:8787`;
+    } else {
+        return `${proto}://${host}`;
+    }
+};
+
+// 2. Modificamos loadSettings para que use la nueva función
+const loadSettings = () => {
+    // Si no hay nada guardado en el navegador, usamos nuestra función dinámica
+    const sig = localStorage.getItem("clb_sig") || getDefaultSignalingUrl();
+    
     $("sigUrlSender").value = sig;
     $("sigUrlReceiver").value = sig;
+    
     const room = localStorage.getItem("clb_room") || "clb360";
     $("roomSender").value = room;
     $("roomReceiver").value = room;
+    
     const ice = localStorage.getItem("clb_ice") || "lan";
     $("iceSender").value = ice;
     $("iceReceiver").value = ice;
+    
     const turn = localStorage.getItem("clb_turn") || "";
     $("turnSender").value = turn;
     $("turnReceiver").value = turn;
@@ -578,22 +587,10 @@
     $("arrGate").value = localStorage.getItem("clb_arrGate") || "1";
     $("depGate").value = localStorage.getItem("clb_depGate") || "1";
     $("rxGate").value = localStorage.getItem("clb_rxGate") || "1";
-  };
-  loadSettings();
+};
 
-  const saveSettings = ()=>{
-    const sig = (role==="sender"?$("sigUrlSender").value:$("sigUrlReceiver").value).trim();
-    localStorage.setItem("clb_sig", sig);
-    const room = (role==="sender"?$("roomSender").value:$("roomReceiver").value).trim() || "clb360";
-    localStorage.setItem("clb_room", room);
-    localStorage.setItem("clb_ice", (role==="sender"?$("iceSender").value:$("iceReceiver").value));
-    localStorage.setItem("clb_turn", (role==="sender"?$("turnSender").value:$("turnReceiver").value));
-    localStorage.setItem("clb_arrGate", $("arrGate").value);
-    localStorage.setItem("clb_depGate", $("depGate").value);
-    localStorage.setItem("clb_rxGate", $("rxGate").value);
-  };
-  ["sigUrlSender","sigUrlReceiver","roomSender","roomReceiver","iceSender","iceReceiver","turnSender","turnReceiver","arrGate","depGate","rxGate"]
-    .forEach(id => $(id).addEventListener("change", saveSettings));
+// 3. Ejecutamos la carga
+loadSettings();
 
   // Routing (global)
   let route = { arrGate: parseInt($("arrGate").value,10), depGate: parseInt($("depGate").value,10) };
