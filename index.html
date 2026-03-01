@@ -514,18 +514,15 @@
   tickClock(); setInterval(tickClock, 1000);
 
   // Role
-  let role = localStorage.getItem("clb_role") || "sender";
-  function setRole = (r) => {
-    role = r;
-    localStorage.setItem("clb_role", role);
-    $("btnRoleSender").classList.toggle("active", role==="sender");
-    $("btnRoleReceiver").classList.toggle("active", role==="receiver");
-    $("senderOnly").classList.toggle("hidden", role!=="sender");
-    $("receiverOnly").classList.toggle("hidden", role!=="receiver");
-    if (role==="sender") rxDisconnect(true); else stopSender(true);
-  };
-  $("btnRoleSender").addEventListener("click", ()=>setRole("sender"));
-  $("btnRoleReceiver").addEventListener("click", ()=>setRole("receiver"));
+  function setRole(r) {
+  role = r;
+  localStorage.setItem("clb_role", role);
+  $("btnRoleSender").classList.toggle("active", role==="sender");
+  $("btnRoleReceiver").classList.toggle("active", role==="receiver");
+  $("senderOnly").classList.toggle("hidden", role!=="sender");
+  $("receiverOnly").classList.toggle("hidden", role!=="receiver");
+  if (role==="sender") rxDisconnect(true); else stopSender(true);
+}
 
   // AudioContext
   let ctx=null, masterGain=null, limiter=null, audioArmed=false;
