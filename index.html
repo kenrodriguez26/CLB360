@@ -514,22 +514,19 @@
   tickClock(); setInterval(tickClock, 1000);
 
   // Role
-let role = localStorage.getItem("clb_role") || "sender";
+  let role = localStorage.getItem("clb_role") || "sender";
+  const setRole = (r) => {
+    role = r;
+    localStorage.setItem("clb_role", role);
+    $("btnRoleSender").classList.toggle("active", role==="sender");
+    $("btnRoleReceiver").classList.toggle("active", role==="receiver");
+    $("senderOnly").classList.toggle("hidden", role!=="sender");
+    $("receiverOnly").classList.toggle("hidden", role!=="receiver");
+    if (role==="sender") rxDisconnect(true); else stopSender(true);
+  };
+  $("btnRoleSender").addEventListener("click", ()=>setRole("sender"));
+  $("btnRoleReceiver").addEventListener("click", ()=>setRole("receiver"));
 
-let tx = {
-  peers: new Map(),
-  broadcasting: false
-};
-
-function setRole(r) {
-  role = r;
-  localStorage.setItem("clb_role", role);
-  $("btnRoleSender").classList.toggle("active", role==="sender");
-  $("btnRoleReceiver").classList.toggle("active", role==="receiver");
-  $("senderOnly").classList.toggle("hidden", role!=="sender");
-  $("receiverOnly").classList.toggle("hidden", role!=="receiver");
-  if (role==="sender") rxDisconnect(true); else stopSender(true);
-}
   // AudioContext
   let ctx=null, masterGain=null, limiter=null, audioArmed=false;
   const setDot = (el,on)=>{ el.classList.toggle("ok",!!on); el.classList.toggle("bad",!on); };
@@ -557,10 +554,13 @@ function setRole(r) {
   window.addEventListener("pointerdown", ()=>{ if(!audioArmed) armAudio(); }, {once:true});
 
   // Settings
- const defaultSigUrl = ()=>{
-  const proto = location.protocol === "https:" ? "wss" : "ws";
-  return `${proto}://${location.host}/ws`;
-};
+  const defaultSigUrl = ()=>{
+    const host = location.hostname;
+    const proto = location.protocol==="https:" ? "wss" : "ws";
+    if (!host) return "";
+    const port = location.port || "8787";
+    return `${proto}://${host}:${port}/ws`;
+  };
   const loadSettings = ()=>{
     const sig = localStorage.getItem("clb_sig") || defaultSigUrl();
     $("sigUrlSender").value = sig;
@@ -861,6 +861,11 @@ function setRole(r) {
   renderRouteUIStatus();
 
   // Sender: WebRTC one-to-many
+  const tx = {
+    peers: new Map(), // rid -> {pc, dc}
+    broadcasting: false,
+  };
+
   const renderListenerList = ()=>{
     const n = tx.peers.size;
     setDot($("rxDot"), n>0);
@@ -873,8 +878,8 @@ function setRole(r) {
     $("listenerList").innerHTML = items.map(x => `<span class="badge">${x}</span>`).join(" ");
   };
 
-  function broadcastRoute() {
-  if (role!=="sender" || !tx.broadcasting) return;
+  const broadcastRoute = ()=>{
+    if (role!=="sender" || !tx.broadcasting) return;
     for (const [rid, p] of tx.peers){
       try{
         if (p.dc && p.dc.readyState==="open"){
@@ -885,7 +890,7 @@ function setRole(r) {
         wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"route", arrGate: route.arrGate, depGate: route.depGate } });
       }
     }
-  }
+  };
 
   const startSender = async ()=>{
     if (tx.broadcasting) return;
@@ -1127,7 +1132,7 @@ function setRole(r) {
     }
   }
 
- // meters loop
+  // meters loop
   function tickMeters(){
     if (!ctx || ctx.state!=="running") return;
     for (const k of ["arr","dep"]){
@@ -1146,7 +1151,6 @@ function setRole(r) {
     }
     requestAnimationFrame(tickMeters);
   }
-
   // Initialize UI
   setRole(role);
   $("btnStop").disabled = true;
@@ -1155,7 +1159,6 @@ function setRole(r) {
   $("btnStart").disabled = true;
   syncSenderButtons();
   applyReceiverRouting();
-
   // initial route status from dropdowns
   route.arrGate = clamp(parseInt($("arrGate").value,10)||1, 1, 4);
   route.depGate = clamp(parseInt($("depGate").value,10)||1, 1, 4);
@@ -1163,7 +1166,6 @@ function setRole(r) {
   applyReceiverRouting();
 
   log("Ready. Click once to enable audio. Sender: route Arr/Dep via dropdowns. Receiver: select gate, connect, enable play.");
-
 })();
 </script>
 </body>
