@@ -785,12 +785,12 @@ loadSettings();
     nodes: {arrSrc:null, depSrc:null},
   };
 
-  const makeRxGraph = (meterEl)=>{
+ const makeRxGraph = (meterEl)=>{
     ensureCtx();
     const input = ctx.createGain(); input.gain.value=1;
     const delay = ctx.createDelay(2.0); delay.delayTime.value=0.20;
     const analyser = ctx.createAnalyser(); analyser.fftSize=2048;
-    const out = ctx.createGain(); out.gain.value=0;
+    const out = ctx.createGain(); out.gain.value=1;
     input.connect(delay); delay.connect(analyser); analyser.connect(out); out.connect(masterGain);
     return { input, delay, analyser, out, meterEl, meterData:new Uint8Array(1024) };
   };
