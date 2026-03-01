@@ -514,7 +514,9 @@
   tickClock(); setInterval(tickClock, 1000);
 
   // Role
-  function setRole(r) {
+let role = localStorage.getItem("clb_role") || "sender";
+
+function setRole(r) {
   role = r;
   localStorage.setItem("clb_role", role);
   $("btnRoleSender").classList.toggle("active", role==="sender");
