@@ -887,7 +887,7 @@
         wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"route", arrGate: route.arrGate, depGate: route.depGate } });
       }
     }
-  };
+  }
 
   const startSender = async ()=>{
     if (tx.broadcasting) return;
