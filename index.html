@@ -886,6 +886,28 @@ function renderRouteUIStatus() {
     if (typeof applyReceiverRouting === "function") applyReceiverRouting();
 }
 
+  // --- Función faltante para guardar configuración ---
+  const saveSettings = () => {
+    const isSender = (role === "sender");
+    const sig = (isSender ? $("sigUrlSender").value : $("sigUrlReceiver").value).trim();
+    localStorage.setItem("clb_sig", sig);
+    
+    const room = (isSender ? $("roomSender").value : $("roomReceiver").value).trim() || "clb360";
+    localStorage.setItem("clb_room", room);
+    
+    const ice = (isSender ? $("iceSender").value : $("iceReceiver").value);
+    localStorage.setItem("clb_ice", ice);
+
+    localStorage.setItem("clb_arrGate", $("arrGate").value);
+    localStorage.setItem("clb_depGate", $("depGate").value);
+    localStorage.setItem("clb_rxGate", $("rxGate").value);
+    console.log("Settings saved to localStorage");
+  };
+
+  // --- Escuchadores para autoguardado ---
+  ["sigUrlSender","sigUrlReceiver","roomSender","roomReceiver","iceSender","iceReceiver","arrGate","depGate","rxGate"].forEach(id => {
+    if($(id)) $(id).addEventListener("change", saveSettings);
+  });
 // 3. La función de envío (LA QUE ESTABA DUPLICADA)
 function broadcastRoute() {
     wsSend({
