@@ -878,7 +878,7 @@
     $("listenerList").innerHTML = items.map(x => `<span class="badge">${x}</span>`).join(" ");
   };
 
-  const broadcastRoute = ()=>{
+  function broadcastRoute(){
     if (role!=="sender" || !tx.broadcasting) return;
     for (const [rid, p] of tx.peers){
       try{
