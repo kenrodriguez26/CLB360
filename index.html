@@ -874,7 +874,7 @@ loadSettings();
 
   // Sender: routing UI -> broadcast route updates
 // 1. La variable de estado (solo una vez)
-let route = { arrGate: 1, depGate: 1 };
+// 1. La variable de estado (solo una vez)
 
 // 2. La función de actualización de interfaz
 function renderRouteUIStatus() {
@@ -886,7 +886,14 @@ function renderRouteUIStatus() {
     if (typeof applyReceiverRouting === "function") applyReceiverRouting();
 }
 
-
+// 3. La función de envío (LA QUE ESTABA DUPLICADA)
+function broadcastRoute() {
+    wsSend({
+        type: "signal",
+        to: "all",
+        data: { kind: "route", arrGate: route.arrGate, depGate: route.depGate }
+    });
+}
   // Sender: WebRTC one-to-many
   const tx = {
     peers: new Map(), // rid -> {pc, dc}
