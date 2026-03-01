@@ -126,10 +126,6 @@ wss.on("connection", (ws) => {
     if (room.clients.size === 0) rooms.delete(roomName);
   });
 });
-
-server.listen(PORT, "0.0.0.0", () => {
-  console.log(`CLB360 Delta Gate Audio Router v3
-  http://0.0.0.0:${PORT}/
-  WebSocket: ws://<HOST>:${PORT}/ws
-`);
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
