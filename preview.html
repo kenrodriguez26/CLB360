@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>CLB360 — Delta Gate Audio Router (Preview v3)</title>
+  <style>
+    :root{
+      --stroke: rgba(255,255,255,.18);
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --btn1: rgba(255,255,255,.14);
+      --btn2: rgba(255,255,255,.08);
+      --red:#d61f26;
+    }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0; color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(124,200,255,.22), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(176,167,255,.18), transparent 55%),
+        linear-gradient(rgba(10,12,18,.78), rgba(10,12,18,.78));
+    }
+    .wrap{ max-width:1280px; margin:0 auto; padding:18px 16px 46px; }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 16px; margin:0 -16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(12px);
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .clb{ font-weight:900; letter-spacing:.5px; font-size:16px; }
+    .rightCluster{ display:flex; gap:12px; align-items:center; }
+    .clock{
+      padding:8px 10px; border:1px solid rgba(255,255,255,.18);
+      border-radius:999px; background: rgba(0,0,0,.18);
+      font-weight:900; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size:12px;
+    }
+    .deltaLogo{ display:flex; align-items:center; gap:10px; }
+    .deltaMark{ width:34px; height:34px; display:block; }
+    .deltaWord{ font-weight:900; letter-spacing:.7px; opacity:.92; }
+    .panel{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+    .grid{ display:grid; grid-template-columns: 1fr; gap:14px; }
+    @media (min-width: 1020px){ .grid{ grid-template-columns: 1.05fr .95fr; } }
+    .card{
+      border:1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.08));
+      border-radius:16px;
+      padding:12px;
+      box-shadow:0 12px 30px rgba(0,0,0,.22);
+    }
+    .card h2{ margin:0 0 10px 0; font-size:14px; display:flex; justify-content:space-between; gap:10px; }
+    .hint{ color:var(--muted); font-size:12px; }
+    .btn{
+      border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(180deg, var(--btn1), var(--btn2));
+      color: var(--text);
+      padding:10px 12px;
+      border-radius:12px;
+      display:inline-flex; gap:8px; align-items:center;
+      font-weight:900; font-size:12px;
+      opacity:.65;
+    }
+    .badge{
+      display:inline-flex; padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size:12px; gap:8px; align-items:center;
+    }
+    select{ border:1px solid rgba(255,255,255,.14); border-radius:12px; background: rgba(0,0,0,.18); color:var(--text); padding:9px 10px; }
+    .actionBar{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; padding:10px; border-radius:14px; border:1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.12); }
+    .actionLeft,.actionRight{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><div class="clb">CLB360</div><span class="hint">Preview v3</span></div>
+      <div class="rightCluster">
+        <div class="clock" id="clock">--:--:--</div>
+        <div class="deltaLogo">
+          <svg class="deltaMark" viewBox="0 0 64 64" aria-hidden="true">
+            <path d="M32 6 L58 54 H6 Z" fill="var(--red)"/>
+            <path d="M32 18 L47 48 H17 Z" fill="rgba(255,255,255,.12)"/>
+          </svg>
+          <div class="deltaWord">DELTA</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel" style="padding:14px;">
+        <div class="card">
+          <h2><span>Sender</span><span class="hint">Route Arr/Dep to gates</span></h2>
+          <div class="actionBar" style="margin-top:10px;">
+            <div class="actionLeft">
+              <span class="badge"><strong>Arrivals →</strong></span>
+              <select><option>Gate 1</option><option>Gate 2</option><option>Gate 3</option><option>Gate 4</option></select>
+              <span class="badge"><strong>Departures →</strong></span>
+              <select><option>Gate 1</option><option>Gate 2</option><option>Gate 3</option><option>Gate 4</option></select>
+              <span class="hint">Max 2 gates active</span>
+            </div>
+            <div class="actionRight">
+              <span class="btn">Start</span>
+              <span class="btn">Stop</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <h2><span>Receiver</span><span class="hint">Select gate to listen</span></h2>
+          <div class="actionBar" style="margin-top:10px;">
+            <div class="actionLeft">
+              <span class="badge"><strong>Gate</strong></span>
+              <select><option>Gate 1</option><option>Gate 2</option><option>Gate 3</option><option>Gate 4</option></select>
+              <span class="hint">Only selected gate shown</span>
+            </div>
+            <div class="actionRight">
+              <span class="btn">Connect</span>
+              <span class="btn">Enable & Play</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" style="padding:14px;">
+        <div class="card">
+          <h2><span>Gate View (Receiver)</span><span class="hint">Arrivals + Departures</span></h2>
+          <div class="hint">Displays only the selected gate. Channels show ON/OFF depending on sender routing.</div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+<script>
+  const clockEl = document.getElementById("clock");
+  function tick(){
+    const d = new Date();
+    clockEl.textContent = String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")+":"+String(d.getSeconds()).padStart(2,"0");
+  }
+  tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
