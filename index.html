@@ -1125,7 +1125,7 @@
     }
   }
 
-  // meters loop
+ // meters loop
   function tickMeters(){
     if (!ctx || ctx.state!=="running") return;
     for (const k of ["arr","dep"]){
@@ -1144,6 +1144,7 @@
     }
     requestAnimationFrame(tickMeters);
   }
+
   // Initialize UI
   setRole(role);
   $("btnStop").disabled = true;
@@ -1152,6 +1153,7 @@
   $("btnStart").disabled = true;
   syncSenderButtons();
   applyReceiverRouting();
+
   // initial route status from dropdowns
   route.arrGate = clamp(parseInt($("arrGate").value,10)||1, 1, 4);
   route.depGate = clamp(parseInt($("depGate").value,10)||1, 1, 4);
@@ -1159,8 +1161,8 @@
   applyReceiverRouting();
 
   log("Ready. Click once to enable audio. Sender: route Arr/Dep via dropdowns. Receiver: select gate, connect, enable play.");
+
 })();
 </script>
 </body>
 </html>
-
