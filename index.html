@@ -907,20 +907,6 @@ function broadcastRoute() {
     $("listenerList").innerHTML = items.map(x => `<span class="badge">${x}</span>`).join(" ");
   };
 
-  const broadcastRoute = ()=>{
-    if (role!=="sender" || !tx.broadcasting) return;
-    for (const [rid, p] of tx.peers){
-      try{
-        if (p.dc && p.dc.readyState==="open"){
-          p.dc.send(JSON.stringify({ type:"route", arrGate: route.arrGate, depGate: route.depGate }));
-        }
-      }catch{}
-      if (ws && ws.readyState===1){
-        wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"route", arrGate: route.arrGate, depGate: route.depGate } });
-      }
-    }
-  };
-
   const startSender = async ()=>{
     if (tx.broadcasting) return;
     saveSettings();
