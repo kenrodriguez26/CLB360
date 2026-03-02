@@ -2,20 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <title>CLB360 — Delta Gate Audio Router</title>
   <style>
     :root{
+      --delta-blue:#003366;
+      --delta-red:#C01933;
+      --delta-red-bright:#E3132C;
+      --delta-navy:#001A33;
+      --delta-red2:#D61F26;
+      --bg0:#06080f;
       --stroke: rgba(255,255,255,.18);
       --shadow: 0 18px 55px rgba(0,0,0,.45);
       --text: rgba(255,255,255,.92);
       --muted: rgba(255,255,255,.70);
       --danger:#ff4d5a;
       --ok:#41d17a;
-      --accent:#7cc8ff;
+      --accent:#7CC8FF;
       --btn1: rgba(255,255,255,.14);
       --btn2: rgba(255,255,255,.08);
-      --red:#d61f26;
     }
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
@@ -24,31 +29,33 @@
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       background:
-        radial-gradient(1200px 700px at 20% 10%, rgba(124,200,255,.22), transparent 60%),
-        radial-gradient(900px 600px at 85% 25%, rgba(176,167,255,.18), transparent 55%),
-        linear-gradient(rgba(10,12,18,.78), rgba(10,12,18,.78)),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='1400' viewBox='0 0 2400 1400'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='20%25' r='85%25'%3E%3Cstop offset='0%25' stop-color='%23233b5b'/%3E%3Cstop offset='55%25' stop-color='%23111a2a'/%3E%3Cstop offset='100%25' stop-color='%23070a11'/%3E%3C/radialGradient%3E%3ClinearGradient id='glass' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='.02'/%3E%3C/linearGradient%3E%3ClinearGradient id='floor' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23101828'/%3E%3Cstop offset='100%25' stop-color='%23060a12'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='2400' height='1400' fill='url(%23g)'/%3E%3Crect y='760' width='2400' height='640' fill='url(%23floor)'/%3E%3Cg opacity='.55'%3E%3Crect x='170' y='170' width='2060' height='610' rx='22' fill='url(%23glass)' stroke='%23ffffff' stroke-opacity='.18'/%3E%3C/g%3E%3Cg opacity='.35'%3E%3Cpath d='M220 780 L1200 450 L2180 780 Z' fill='%23ffffff' fill-opacity='.05'/%3E%3Cpath d='M220 780 L1200 560 L2180 780 Z' fill='%23ffffff' fill-opacity='.04'/%3E%3C/g%3E%3Cg opacity='.65'%3E%3Ccircle cx='470' cy='250' r='4' fill='%23b7dcff'/%3E%3Ccircle cx='1040' cy='220' r='3' fill='%23b7dcff'/%3E%3Ccircle cx='1760' cy='270' r='4' fill='%23b7dcff'/%3E%3C/g%3E%3Ctext x='170' y='1290' font-family='ui-sans-serif,system-ui' font-size='44' fill='%23ffffff' fill-opacity='.10'%3EAIRPORT TERMINAL%3C/text%3E%3C/svg%3E");
+        radial-gradient(1200px 700px at 20% 10%, rgba(0,51,102,.35), transparent 60%),
+        radial-gradient(900px 600px at 85% 25%, rgba(192,25,51,.22), transparent 55%),
+        linear-gradient(rgba(8,10,16,.78), rgba(8,10,16,.78)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='1400' viewBox='0 0 2400 1400'%3E%3Cdefs%3E%3CradialGradient id='g' cx='35%25' cy='20%25' r='85%25'%3E%3Cstop offset='0%25' stop-color='%23003366'/%3E%3Cstop offset='55%25' stop-color='%23111a2a'/%3E%3Cstop offset='100%25' stop-color='%2306080f'/%3E%3C/radialGradient%3E%3ClinearGradient id='glass' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0%25' stop-color='%23ffffff' stop-opacity='.18'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='.02'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='2400' height='1400' fill='url(%23g)'/%3E%3Cg opacity='.55'%3E%3Crect x='170' y='170' width='2060' height='860' rx='22' fill='url(%23glass)' stroke='%23ffffff' stroke-opacity='.18'/%3E%3C/g%3E%3Cg opacity='.35'%3E%3Cpath d='M220 980 L1200 520 L2180 980 Z' fill='%23ffffff' fill-opacity='.05'/%3E%3Cpath d='M220 980 L1200 700 L2180 980 Z' fill='%23ffffff' fill-opacity='.04'/%3E%3C/g%3E%3Ctext x='170' y='1290' font-family='ui-sans-serif,system-ui' font-size='44' fill='%23ffffff' fill-opacity='.10'%3EAIRPORT TERMINAL%3C/text%3E%3C/svg%3E");
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       overflow-x:hidden;
     }
-
+    @media (max-width: 900px){
+      body{ background-attachment: scroll; }
+    }
     .wrap{ max-width:1280px; margin:0 auto; padding:18px 16px 46px; }
-
     .topbar{
       position: sticky; top:0; z-index:20;
-      display:flex; align-items:center; justify-content:space-between; gap:14px;
-      padding:14px 16px; margin:0 -16px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 12px 14px;
+      margin: 0 -16px 14px;
       border-bottom: 1px solid rgba(255,255,255,.12);
-      background: linear-gradient(180deg, rgba(0,0,0,.40), rgba(0,0,0,.08));
+      background: linear-gradient(180deg, rgba(0,51,102,.32), rgba(0,0,0,.16));
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
     }
     .brand{ display:flex; align-items:center; gap:12px; min-width:0; }
-    .brand .clb{ font-weight:900; letter-spacing:.5px; font-size:16px; white-space:nowrap; }
-
-    .rightCluster{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end; }
+    .brand .clb{ font-weight:950; letter-spacing:.6px; font-size:16px; white-space:nowrap; }
+    .pillGroup{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+    .rightCluster{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end; }
     .clock{
       padding:8px 10px;
       border:1px solid rgba(255,255,255,.18);
@@ -62,9 +69,9 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
     .deltaLogo{ display:flex; align-items:center; gap:10px; user-select:none; }
+    .deltaFullLogo{height:26px; width:auto; display:block; filter: drop-shadow(0 10px 22px rgba(0,0,0,.35));}
     .deltaMark{ width:34px; height:34px; display:block; filter: drop-shadow(0 10px 22px rgba(0,0,0,.35)); }
-    .deltaWord{ font-weight:900; letter-spacing:.7px; opacity:.92; }
-
+    .deltaWord{ font-weight:950; letter-spacing: .9px; opacity:.95; }
     .panel{
       border:1px solid var(--stroke);
       background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
@@ -75,7 +82,7 @@
     }
     .card{
       border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.08));
+      background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.08));
       border-radius:16px;
       padding:12px;
       box-shadow:0 12px 30px rgba(0,0,0,.22);
@@ -89,7 +96,6 @@
     .hint{ color:var(--muted); font-size:12px; }
     .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
     .sep{ height:1px; background: rgba(255,255,255,.12); margin: 12px 0; border-radius:999px; }
-
     .btn{
       appearance:none;
       border: 1px solid rgba(255,255,255,.18);
@@ -106,33 +112,31 @@
       letter-spacing: .12px;
       box-shadow: 0 10px 24px rgba(0,0,0,.25);
       transition: transform .08s ease, border-color .2s ease, box-shadow .2s ease, opacity .2s ease;
+      white-space: nowrap;
     }
     .btn:hover{ border-color: rgba(255,255,255,.28); box-shadow:0 14px 30px rgba(0,0,0,.30); transform: translateY(-1px); }
     .btn:active{ transform: translateY(0px) scale(.99); }
     .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:0 10px 20px rgba(0,0,0,.18); }
     .btn.primary{
-      border-color: rgba(124,200,255,.35);
+      border-color: rgba(0,51,102,.70);
       background:
-        radial-gradient(800px 80px at 25% 0%, rgba(124,200,255,.25), transparent 60%),
-        linear-gradient(180deg, rgba(124,200,255,.18), rgba(255,255,255,.06));
+        radial-gradient(900px 80px at 20% 0%, rgba(0,51,102,.38), transparent 60%),
+        linear-gradient(180deg, rgba(0,51,102,.26), rgba(255,255,255,.06));
     }
     .btn.danger{
-      border-color: rgba(255,77,90,.35);
+      border-color: rgba(192,25,51,.65);
       background:
-        radial-gradient(800px 80px at 25% 0%, rgba(255,77,90,.12), transparent 60%),
-        linear-gradient(180deg, rgba(255,77,90,.12), rgba(255,255,255,.06));
+        radial-gradient(900px 80px at 20% 0%, rgba(192,25,51,.22), transparent 60%),
+        linear-gradient(180deg, rgba(192,25,51,.22), rgba(255,255,255,.06));
     }
-    .btn.small{ padding:8px 10px; border-radius:11px; font-weight:900; font-size:12px; }
+    .btn.small{ padding:8px 10px; border-radius:11px; font-weight:950; font-size:12px; }
     .btn.pill{ border-radius:999px; padding: 8px 12px; font-size:12px; }
-    .pillGroup{ display:flex; gap:8px; flex-wrap:wrap; }
     .pillBtn.active{ border-color: rgba(124,200,255,.55); box-shadow: 0 12px 26px rgba(0,0,0,.24); }
-
     .file{ position:relative; overflow:hidden; }
     .file input[type="file"]{ position:absolute; inset:0; opacity:0; cursor:pointer; }
-
     .grid{ display:grid; grid-template-columns: 1fr; gap:14px; }
-    @media (min-width: 1020px){ .grid{ grid-template-columns: 1.05fr .95fr; align-items:start; } }
-
+    @media (min-width: 1020px){ .grid{ grid-template-columns: 1.08fr .92fr; align-items:start; } }
+    select, textarea, input[type="text"], input[type="range"]{ font-size: 16px; }
     input[type="range"]{ width:100%; accent-color: var(--accent); }
     select, textarea, input[type="text"]{
       width:100%;
@@ -143,7 +147,6 @@
       padding:9px 10px;
       outline:none;
     }
-
     .chip{
       padding:8px 10px;
       border:1px solid var(--stroke);
@@ -157,7 +160,6 @@
     .dot{ width:9px;height:9px;border-radius:50%; background:rgba(255,255,255,.35); box-shadow:0 0 0 3px rgba(255,255,255,.08); }
     .dot.ok{ background:var(--ok); box-shadow:0 0 0 3px rgba(65,209,122,.18); }
     .dot.bad{ background:var(--danger); box-shadow:0 0 0 3px rgba(255,77,90,.18); }
-
     .badge{
       display:inline-flex;
       padding:6px 10px;
@@ -168,9 +170,9 @@
       font-size:12px;
       align-items:center;
       gap:8px;
+      white-space: nowrap;
     }
     .badge strong{ color: var(--text); }
-
     .meter{
       width:100%; height:10px; border-radius:999px;
       border:1px solid rgba(255,255,255,.16);
@@ -182,7 +184,6 @@
       background: linear-gradient(90deg, rgba(65,209,122,.95), rgba(124,200,255,.95), rgba(255,214,102,.95));
       border-radius:999px;
     }
-
     .actionBar{
       display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between;
       padding:10px;
@@ -192,9 +193,13 @@
       margin-bottom: 12px;
     }
     .actionLeft, .actionRight{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
-
     .miniRow{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-
+    .gateCardTitle{
+      display:flex; justify-content:space-between; align-items:center; gap:10px;
+      margin-bottom:10px;
+      flex-wrap: wrap;
+    }
+    .routeState{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
     pre.log{
       margin:0;
       padding:10px;
@@ -207,15 +212,67 @@
       line-height:1.35;
       color: rgba(255,255,255,.82);
     }
-
     .hidden{ display:none !important; }
-
-    .gateCardTitle{
-      display:flex; justify-content:space-between; align-items:center; gap:10px;
-      margin-bottom:10px;
+    .matrix{
+      width:100%;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+      background: rgba(0,0,0,.12);
     }
-    .routeState{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    .mRow, .mHead{
+      display:grid;
+      grid-template-columns: 160px repeat(4, minmax(72px, 1fr));
+      gap:0;
+      align-items:center;
+    }
+    .mHead{
+      background: rgba(0,0,0,.18);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      font-size:12px;
+      color: rgba(255,255,255,.78);
+    }
+    .mCell{
+      padding:10px;
+      border-right:1px solid rgba(255,255,255,.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height: 42px;
+    }
+    .mCell:last-child{ border-right:none; }
+    .mLabel{
+      justify-content:flex-start;
+      gap:10px;
+      font-weight: 950;
+      color: rgba(255,255,255,.86);
+    }
+    .toggle{
+      width:44px; height:26px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      position:relative;
+      cursor:pointer;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+    }
+    .toggle i{
+      position:absolute; top:50%; left:3px;
+      width:20px; height:20px;
+      transform: translateY(-50%);
+      border-radius:50%;
+      background: rgba(255,255,255,.75);
+      transition: left .12s ease, background .12s ease;
+    }
+    .toggle.on{
+      border-color: rgba(0,51,102,.55);
+      background: rgba(0,51,102,.18);
+    }
+    .toggle.on i{ left:21px; background: rgba(124,200,255,.95); }
+    .toggle.disabled{ opacity:.35; cursor:not-allowed; }
+    @media (max-width: 700px){
+      .mRow, .mHead{ grid-template-columns: 130px repeat(4, minmax(56px, 1fr)); }
+      .mCell{ padding:8px; }
     }
   </style>
 </head>
@@ -231,13 +288,12 @@
       </div>
 
       <div class="rightCluster">
+        <button class="btn pill small" id="btnLogToggle" type="button" title="Show/Hide log (L)">L</button>
         <div class="clock" id="clock">--:--:--</div>
+
         <div class="deltaLogo" title="Delta">
-          <svg class="deltaMark" viewBox="0 0 64 64" aria-hidden="true">
-            <path d="M32 6 L58 54 H6 Z" fill="var(--red)"/>
-            <path d="M32 18 L47 48 H17 Z" fill="rgba(255,255,255,.12)"/>
-          </svg>
-          <div class="deltaWord">DELTA</div>
+          <img class="deltaFullLogo" src="assets/delta_fullcolor.png" alt="Delta" />
+        </div>
         </div>
       </div>
     </div>
@@ -248,24 +304,90 @@
           <div class="actionBar">
             <div class="actionLeft">
               <span class="badge"><strong>Sender</strong></span>
-
-              <span class="badge">Arrivals →</span>
-              <select id="arrGate" style="max-width:160px;">
-                <option value="1">Gate 1</option><option value="2">Gate 2</option><option value="3">Gate 3</option><option value="4">Gate 4</option>
-              </select>
-
-              <span class="badge">Departures →</span>
-              <select id="depGate" style="max-width:160px;">
-                <option value="1">Gate 1</option><option value="2">Gate 2</option><option value="3">Gate 3</option><option value="4">Gate 4</option>
-              </select>
-
-              <span class="hint">Max 2 gates active (Arr/Dep)</span>
+              <span class="hint">Route sources to multiple gates (matrix)</span>
             </div>
             <div class="actionRight">
               <button class="btn primary" id="btnStart" type="button">Start</button>
               <button class="btn danger" id="btnStop" type="button" disabled>Stop</button>
             </div>
           </div>
+
+          <div class="card">
+            <h2><span>Routing Matrix</span><span class="hint">One source → multiple destinations</span></h2>
+            <div class="hint" style="margin-bottom:10px;">
+              Route either audio file to <b>Gate Pair 1–2</b> or <b>Gate Pair 3–4</b>.
+            </div>
+
+            <div class="card" style="margin-bottom:12px;">
+              <h2><span>Quick Route</span><span class="hint">Audio 1 / Audio 2 → choose gate pair</span></h2>
+              <div class="hint" style="margin-bottom:10px;">
+                This router has two internal tracks:
+                <b>Track A</b> (routes to <b>Gates 1–2</b>) and <b>Track B</b> (routes to <b>Gates 3–4</b>).
+                To send <b>Audio 1</b> or <b>Audio 2</b> to a gate-pair, load that audio into the matching track below and enable its gate toggles.
+              </div>
+
+              <div class="row">
+                <span class="badge"><strong>Audio 1</strong></span>
+                <a class="btn small primary" href="#route-track-a">Send to Gates 1–2</a>
+                <a class="btn small danger" href="#route-track-b">Send to Gates 3–4</a>
+                <span class="hint">Pick the track you want Audio 1 to use.</span>
+              </div>
+
+              <div class="row" style="margin-top:8px;">
+                <span class="badge"><strong>Audio 2</strong></span>
+                <a class="btn small primary" href="#route-track-a">Send to Gates 1–2</a>
+                <a class="btn small danger" href="#route-track-b">Send to Gates 3–4</a>
+                <span class="hint">Pick the track you want Audio 2 to use.</span>
+              </div>
+
+              <div class="sep"></div>
+              <div class="row">
+                <a class="btn small" href="#source-track-a">Go to Track A Audio</a>
+                <a class="btn small" href="#source-track-b">Go to Track B Audio</a>
+              </div>
+
+              <div class="hint" style="margin-top:10px;">
+                Note: The system can stream only <b>two tracks at once</b>. If you need Audio 1 on Gates 3–4, load Audio 1 into <b>Track B</b>.
+                If you need Audio 2 on Gates 1–2, load Audio 2 into <b>Track A</b>.
+              </div>
+            </div>
+
+            <div class="matrix" aria-label="Routing matrix">
+              <div class="mHead">
+                <div class="mCell mLabel">Track</div>
+                <div class="mCell">Gate 1</div>
+                <div class="mCell">Gate 2</div>
+                <div class="mCell">Gate 3</div>
+                <div class="mCell">Gate 4</div>
+              </div>
+
+              <div class="mRow" data-src="arr">
+                <div class="mCell mLabel" id="route-track-a">Track A</div>
+                <div class="mCell"><div class="toggle" data-src="arr" data-gate="1"><i></i></div></div>
+                <div class="mCell"><div class="toggle" data-src="arr" data-gate="2"><i></i></div></div>
+                <div class="mCell"><div class="toggle disabled" data-src="arr" data-gate="3"><i></i></div></div>
+                <div class="mCell"><div class="toggle disabled" data-src="arr" data-gate="4"><i></i></div></div>
+              </div>
+
+              <div class="mRow" data-src="dep" style="border-top:1px solid rgba(255,255,255,.10);">
+                <div class="mCell mLabel" id="route-track-b">Track B</div>
+                <div class="mCell"><div class="toggle disabled" data-src="dep" data-gate="1"><i></i></div></div>
+                <div class="mCell"><div class="toggle disabled" data-src="dep" data-gate="2"><i></i></div></div>
+                <div class="mCell"><div class="toggle" data-src="dep" data-gate="3"><i></i></div></div>
+                <div class="mCell"><div class="toggle" data-src="dep" data-gate="4"><i></i></div></div>
+              </div>
+            </div>
+
+            <div class="sep"></div>
+
+            <div class="row">
+              <span class="badge">Track A → <strong id="statusArrGates">Gate 1</strong></span>
+              <span class="badge">Track B → <strong id="statusDepGates">Gate 3</strong></span>
+              <span class="hint">Routing is remembered until you close the tab (session).</span>
+            </div>
+          </div>
+
+          <div class="sep"></div>
 
           <div class="card">
             <h2><span>Broadcast</span><span class="hint" id="txState">Idle</span></h2>
@@ -322,8 +444,8 @@
             <h2><span>Sources</span><span class="hint">Load 2 audio files</span></h2>
 
             <div class="row" style="gap:14px;">
-              <div class="card" style="flex:1 1 360px;">
-                <h2><span>Arrivals Audio</span><span class="hint" id="arrName">No file</span></h2>
+              <div class="card" style="flex:1 1 360px;" id="source-track-a">
+                <h2><span>Track A Audio</span><span class="hint" id="arrName">No file</span></h2>
                 <div class="row">
                   <label class="btn file primary">Load<input type="file" id="arrFile" accept="audio/*" /></label>
                   <button class="btn" id="arrPlay" disabled>Play</button>
@@ -339,8 +461,8 @@
                 <div class="meter" style="margin-top:10px;"><i id="arrMeter"></i></div>
               </div>
 
-              <div class="card" style="flex:1 1 360px;">
-                <h2><span>Departures Audio</span><span class="hint" id="depName">No file</span></h2>
+              <div class="card" style="flex:1 1 360px;" id="source-track-b">
+                <h2><span>Track B Audio</span><span class="hint" id="depName">No file</span></h2>
                 <div class="row">
                   <label class="btn file primary">Load<input type="file" id="depFile" accept="audio/*" /></label>
                   <button class="btn" id="depPlay" disabled>Play</button>
@@ -364,6 +486,10 @@
               <button class="btn danger" id="btnStopLocal" disabled type="button">Stop</button>
               <span class="badge">Master Vol</span>
               <input type="range" id="masterVol" min="0" max="1.25" step="0.01" value="1" disabled style="max-width:260px;"/>
+            </div>
+
+            <div class="hint" style="margin-top:10px;">
+              Source audio stays loaded while the page is open. (Browsers do not allow reloading a local file after refresh without choosing it again.)
             </div>
           </div>
         </div>
@@ -451,6 +577,11 @@
                 <span class="badge">Vol</span>
                 <input type="range" id="rxArrVol" min="0" max="1" step="0.01" value="1" style="max-width:260px;"/>
                 <button class="btn small" id="rxArrMute">Mute</button>
+                <span class="badge">Listen</span>
+                <select id="rxArrListen" style="max-width:150px;">
+                  <option value="auto" selected>Auto</option>
+                  <option value="off">Off</option>
+                </select>
               </div>
               <div class="meter" style="margin-top:10px;"><i id="rxArrMeter"></i></div>
             </div>
@@ -461,30 +592,38 @@
                 <span class="badge">Vol</span>
                 <input type="range" id="rxDepVol" min="0" max="1" step="0.01" value="1" style="max-width:260px;"/>
                 <button class="btn small" id="rxDepMute">Mute</button>
+                <span class="badge">Listen</span>
+                <select id="rxDepListen" style="max-width:150px;">
+                  <option value="auto" selected>Auto</option>
+                  <option value="off">Off</option>
+                </select>
               </div>
               <div class="meter" style="margin-top:10px;"><i id="rxDepMeter"></i></div>
+            </div>
+
+            <div class="hint" style="margin-top:10px;">
+              Receiver “matrix” behavior: you pick a gate (destination) and independently enable/disable Arrivals/Departures.
             </div>
           </div>
         </div>
 
         <div class="sep"></div>
-
-        <div class="card">
-          <h2><span>Log</span><span class="hint">Copy last 20 lines if needed</span></h2>
+        <div class="card hidden" id="logPanel">
+          <h2><span>Log</span><span class="hint">Hidden by default • toggle with L</span></h2>
           <pre class="log" id="log"></pre>
         </div>
       </section>
 
       <section class="panel" style="padding:14px;">
         <div class="card">
-          <h2><span>Status</span><span class="hint">Routing is global: Arrivals → Gate X, Departures → Gate Y</span></h2>
+          <h2><span>Status</span><span class="hint">Live routing + multi-destination</span></h2>
           <div class="row">
-            <span class="badge">Arrivals → <strong id="statusArrGate">Gate 1</strong></span>
-            <span class="badge">Departures → <strong id="statusDepGate">Gate 1</strong></span>
+            <span class="badge">Track A → <strong id="statusArrGates2">Gate 1</strong></span>
+            <span class="badge">Track B → <strong id="statusDepGates2">Gate 3</strong></span>
           </div>
           <div class="sep"></div>
           <div class="hint">
-            v3 streams only <b>2 audio tracks</b> (Arrivals + Departures). Each receiver chooses a Gate; it plays a track only when that track is routed to its selected gate.
+            Streams only <b>2 audio tracks</b> (Track A + Track B). Sender can route each track to <b>multiple gates</b>. Each receiver selects a gate and plays whatever is routed to that gate.
           </div>
         </div>
       </section>
@@ -500,12 +639,12 @@
   const clamp = (n,a,b)=>Math.min(b,Math.max(a,n));
   const logEl = $("log");
   const log = (...a)=>{
+    if (!logEl) return;
     const t = new Date().toLocaleTimeString();
     logEl.textContent += `[${t}] ` + a.map(x => typeof x==="string"?x:JSON.stringify(x)).join(" ") + "\n";
     logEl.scrollTop = logEl.scrollHeight;
   };
 
-  // Clock
   const clockEl = $("clock");
   const tickClock = () => {
     const d = new Date();
@@ -513,7 +652,17 @@
   };
   tickClock(); setInterval(tickClock, 1000);
 
-  // Role
+  const logPanel = $("logPanel");
+  const setLogVisible = (v) => logPanel.classList.toggle("hidden", !v);
+  let logVisible = false;
+  $("btnLogToggle").addEventListener("click", ()=>{ logVisible = !logVisible; setLogVisible(logVisible); });
+  window.addEventListener("keydown", (e)=>{
+    if ((e.key || "").toLowerCase() === "l"){
+      logVisible = !logVisible;
+      setLogVisible(logVisible);
+    }
+  });
+
   let role = localStorage.getItem("clb_role") || "sender";
   const setRole = (r) => {
     role = r;
@@ -527,7 +676,6 @@
   $("btnRoleSender").addEventListener("click", ()=>setRole("sender"));
   $("btnRoleReceiver").addEventListener("click", ()=>setRole("receiver"));
 
-  // AudioContext
   let ctx=null, masterGain=null, limiter=null, audioArmed=false;
   const setDot = (el,on)=>{ el.classList.toggle("ok",!!on); el.classList.toggle("bad",!on); };
   const ensureCtx = ()=>{
@@ -553,54 +701,128 @@
   };
   window.addEventListener("pointerdown", ()=>{ if(!audioArmed) armAudio(); }, {once:true});
 
-// 1. Definimos la función con el nombre correcto
-const getDefaultSignalingUrl = () => {
-    const proto = location.protocol === "https:" ? "wss" : "ws";
+  const defaultSigUrl = ()=>{
     const host = location.hostname;
-    if (host === 'localhost' || host === '127.0.0.1') {
-        return `${proto}://${host}:8787`;
-    } else {
-        return `${proto}://${host}`;
-    }
-};
+    const proto = location.protocol==="https:" ? "wss" : "ws";
+    if (!host) return "";
+    const port = location.port || "8787";
+    return `${proto}://${host}:${port}/ws`;
+  };
 
-// 2. Modificamos loadSettings para que use la nueva función
-const loadSettings = () => {
-    // Si no hay nada guardado en el navegador, usamos nuestra función dinámica
-    const sig = localStorage.getItem("clb_sig") || getDefaultSignalingUrl();
-    
+  const ssGet = (k, fallback=null)=>{
+    try{
+      const v = sessionStorage.getItem(k);
+      return (v===null || v===undefined) ? fallback : v;
+    }catch{ return fallback; }
+  };
+  const ssSet = (k, v)=>{ try{ sessionStorage.setItem(k, v); }catch{} };
+
+  const parseGateSet = (s)=>{
+    const set = new Set();
+    String(s||"").split(",").map(x=>parseInt(x.trim(),10)).filter(n=>[1,2,3,4].includes(n)).forEach(n=>set.add(n));
+    if (set.size === 0) set.add(1);
+    return set;
+  };
+
+  let route = { arrGates: new Set([1]), depGates: new Set([3]) };
+
+  const enforceGrouping = ()=>{
+    route.arrGates = new Set([...route.arrGates].filter(g=>g===1||g===2));
+    route.depGates = new Set([...route.depGates].filter(g=>g===3||g===4));
+    if (route.arrGates.size === 0) route.arrGates.add(1);
+    if (route.depGates.size === 0) route.depGates.add(3);
+  };
+
+  const renderRouteStatus = ()=>{
+    const fmt = (set)=>{
+      const arr=[...set].sort((a,b)=>a-b);
+      return arr.map(g=>`Gate ${g}`).join(" + ");
+    };
+    $("statusArrGates").textContent = fmt(route.arrGates);
+    $("statusDepGates").textContent = fmt(route.depGates);
+    $("statusArrGates2").textContent = fmt(route.arrGates);
+    $("statusDepGates2").textContent = fmt(route.depGates);
+  };
+
+  const syncMatrixUI = ()=>{
+    document.querySelectorAll(".toggle[data-src][data-gate]").forEach(t => {
+      const src = t.getAttribute("data-src");
+      const gate = parseInt(t.getAttribute("data-gate"), 10);
+      const allowed = !t.classList.contains("disabled");
+      const on = (src === "arr") ? route.arrGates.has(gate) : route.depGates.has(gate);
+      t.classList.toggle("on", allowed && on);
+    });
+    renderRouteStatus();
+  };
+
+  const saveSettings = ()=>{
+    const isSender = (role === "sender");
+    const sig = (isSender ? $("sigUrlSender").value : $("sigUrlReceiver").value).trim();
+    localStorage.setItem("clb_sig", sig);
+    const room = (isSender ? $("roomSender").value : $("roomReceiver").value).trim() || "clb360";
+    localStorage.setItem("clb_room", room);
+    const ice = (isSender ? $("iceSender").value : $("iceReceiver").value);
+    localStorage.setItem("clb_ice", ice);
+    localStorage.setItem("clb_turn", (isSender ? $("turnSender").value : $("turnReceiver").value));
+    ssSet("clb_arrGates", [...route.arrGates].sort().join(","));
+    ssSet("clb_depGates", [...route.depGates].sort().join(","));
+    ssSet("clb_rxGate", $("rxGate").value);
+    ssSet("clb_rxArrListen", $("rxArrListen").value);
+    ssSet("clb_rxDepListen", $("rxDepListen").value);
+  };
+
+  const loadSettings = ()=>{
+    const sig = localStorage.getItem("clb_sig") || defaultSigUrl();
     $("sigUrlSender").value = sig;
     $("sigUrlReceiver").value = sig;
-    
     const room = localStorage.getItem("clb_room") || "clb360";
     $("roomSender").value = room;
     $("roomReceiver").value = room;
-    
     const ice = localStorage.getItem("clb_ice") || "lan";
     $("iceSender").value = ice;
     $("iceReceiver").value = ice;
-    
     const turn = localStorage.getItem("clb_turn") || "";
     $("turnSender").value = turn;
     $("turnReceiver").value = turn;
-
-    $("arrGate").value = localStorage.getItem("clb_arrGate") || "1";
-    $("depGate").value = localStorage.getItem("clb_depGate") || "1";
-    $("rxGate").value = localStorage.getItem("clb_rxGate") || "1";
-};
-
-// 3. Ejecutamos la carga
-loadSettings();
-
-  // Routing (global)
-  let route = { arrGate: parseInt($("arrGate").value,10), depGate: parseInt($("depGate").value,10) };
-  const renderRouteStatus = ()=>{
-    $("statusArrGate").textContent = "Gate " + route.arrGate;
-    $("statusDepGate").textContent = "Gate " + route.depGate;
+    route.arrGates = parseGateSet(ssGet("clb_arrGates", "1"));
+    route.depGates = parseGateSet(ssGet("clb_depGates", "3"));
+    $("rxGate").value = ssGet("clb_rxGate", "1");
+    $("rxArrListen").value = ssGet("clb_rxArrListen", "auto");
+    $("rxDepListen").value = ssGet("clb_rxDepListen", "auto");
   };
-  renderRouteStatus();
+  loadSettings();
+  enforceGrouping();
+  syncMatrixUI();
 
-  // WebSocket
+  ["sigUrlSender","sigUrlReceiver","roomSender","roomReceiver","iceSender","iceReceiver","turnSender","turnReceiver","rxGate","rxArrListen","rxDepListen"]
+    .forEach(id => $(id).addEventListener("change", saveSettings));
+
+  const setMatrixGate = (src, gate, on)=>{
+    if (src === "arr" && !(gate===1||gate===2)) return;
+    if (src === "dep" && !(gate===3||gate===4)) return;
+    if (src === "arr"){
+      if (on) route.arrGates.add(gate); else route.arrGates.delete(gate);
+      if (route.arrGates.size === 0) route.arrGates.add(1);
+    } else {
+      if (on) route.depGates.add(gate); else route.depGates.delete(gate);
+      if (route.depGates.size === 0) route.depGates.add(3);
+    }
+    enforceGrouping();
+    syncMatrixUI();
+    broadcastRoute();
+    applyReceiverRouting();
+    saveSettings();
+  };
+  document.querySelectorAll(".toggle[data-src][data-gate]").forEach(t => {
+    t.addEventListener("click", ()=>{
+      if (t.classList.contains("disabled")) return;
+      const src = t.getAttribute("data-src");
+      const gate = parseInt(t.getAttribute("data-gate"), 10);
+      const isOn = t.classList.contains("on");
+      setMatrixGate(src, gate, !isOn);
+    });
+  });
+
   let ws=null, wsId=null, wsRoom=null, senderId=null;
   const safeJson = (t)=>{ try{return JSON.parse(t);}catch{return null;} };
   const setWsStatus = (on)=>{
@@ -609,59 +831,29 @@ loadSettings();
   };
   const wsSend = (obj)=>{ if(ws && ws.readyState===1) ws.send(JSON.stringify(obj)); };
   const wsConnect = (url, room, joinRole, name) => {
-  return new Promise((resolve, reject) => {
-    if (!url) return reject(new Error("Missing signaling URL"));
-
-    // CORRECCIÓN CRÍTICA: 
-    // Si la URL no tiene protocolo, se lo ponemos. 
-    // Si estás en Railway (HTTPS), debe ser wss://
-    let finalUrl = url;
-    if (!finalUrl.startsWith('ws')) {
-        const proto = location.protocol === 'https:' ? 'wss://' : 'ws://';
-        finalUrl = proto + finalUrl;
-    }
-
-    console.log("Intentando conectar a:", finalUrl);
-    ws = new WebSocket(finalUrl);
-    
-    setWsStatus(false);
-
-    ws.onopen = () => { 
-        console.log("¡Conexión establecida!");
-        setWsStatus(true); 
-        ws.send(JSON.stringify({type:"join", role:joinRole, room, name})); 
-        resolve(); 
-    };
-
-    ws.onerror = (err) => {
-        console.error("Error de WebSocket:", err);
+    return new Promise((resolve, reject) => {
+      if (!url) return reject(new Error("Missing signaling URL"));
+      ws = new WebSocket(url);
+      setWsStatus(false);
+      ws.onopen = () => { setWsStatus(true); ws.send(JSON.stringify({type:"join", role:joinRole, room, name})); resolve(); };
+      ws.onerror = () => setWsStatus(false);
+      ws.onclose = () => {
         setWsStatus(false);
-    };
-
-    ws.onclose = () => {
-        setWsStatus(false);
-        ws = null;
-        console.log("Conexión cerrada");
-    };
-
-    ws.onmessage = (ev) => { 
-        const msg = safeJson(ev.data); 
-        if(msg) handleWsMessage(msg); 
-    };
-  });
-};
+        ws=null; wsId=null; wsRoom=null; senderId=null;
+        if(role==="sender") stopSender(false);
+        else rxDisconnect(false);
+      };
+      ws.onmessage = (ev) => { const msg = safeJson(ev.data); if(msg) handleWsMessage(msg); };
+    });
+  };
 
   const iceServersFor = (preset, turnJsonText)=>{
     if (preset==="lan") return [];
     if (preset==="stun") return [{urls:["stun:stun.l.google.com:19302","stun:stun1.l.google.com:19302"]}];
-    try{
-      const v=JSON.parse(turnJsonText||"[]");
-      if(Array.isArray(v)&&v.length) return v;
-    }catch{}
+    try{ const v=JSON.parse(turnJsonText||"[]"); if(Array.isArray(v)&&v.length) return v; }catch{}
     return [];
   };
 
-  // Sender audio (2 tracks)
   const audioArr = $("audioArr");
   const audioDep = $("audioDep");
   const src = {
@@ -674,7 +866,6 @@ loadSettings();
   const buildSenderGraph = ()=>{
     if(senderGraphBuilt) return;
     ensureCtx();
-    // Arrivals
     src.arr.node = ctx.createMediaElementSource(src.arr.audio);
     src.arr.gain = ctx.createGain(); src.arr.gain.gain.value=1;
     src.arr.analyser = ctx.createAnalyser(); src.arr.analyser.fftSize=2048;
@@ -684,7 +875,6 @@ loadSettings();
     src.arr.analyser.connect(src.arr.streamDest);
     src.arr.analyser.connect(masterGain);
 
-    // Departures
     src.dep.node = ctx.createMediaElementSource(src.dep.audio);
     src.dep.gain = ctx.createGain(); src.dep.gain.gain.value=1;
     src.dep.analyser = ctx.createAnalyser(); src.dep.analyser.fftSize=2048;
@@ -764,7 +954,6 @@ loadSettings();
     $("btnStart").disabled = !audioArmed;
   };
 
-  // meters
   const meterFromAnalyser = (analyser, data)=>{
     analyser.getByteTimeDomainData(data);
     let sum=0;
@@ -773,24 +962,24 @@ loadSettings();
     return clamp(rms*2.2,0,1);
   };
 
-  // Receiver: 2 graphs
   const rx = {
     graphs: { arr:null, dep:null },
     pc:null,
     connected:false,
     trackCount:0,
-    gate: clamp(parseInt($("rxGate").value,10)||1, 1, 4),
+    gate: 1,
     routed: {arr:false, dep:false},
     muted: {arr:false, dep:false},
     nodes: {arrSrc:null, depSrc:null},
+    listen: { arr:"auto", dep:"auto" }
   };
 
- const makeRxGraph = (meterEl)=>{
+  const makeRxGraph = (meterEl)=>{
     ensureCtx();
     const input = ctx.createGain(); input.gain.value=1;
     const delay = ctx.createDelay(2.0); delay.delayTime.value=0.20;
     const analyser = ctx.createAnalyser(); analyser.fftSize=2048;
-    const out = ctx.createGain(); out.gain.value=1;
+    const out = ctx.createGain(); out.gain.value=0;
     input.connect(delay); delay.connect(analyser); analyser.connect(out); out.connect(masterGain);
     return { input, delay, analyser, out, meterEl, meterData:new Uint8Array(1024) };
   };
@@ -814,14 +1003,17 @@ loadSettings();
     const master = clamp(parseFloat($("rxMasterVol").value), 0, 1);
     const arrVol = clamp(parseFloat($("rxArrVol").value), 0, 1);
     const depVol = clamp(parseFloat($("rxDepVol").value), 0, 1);
-    const arrOn = rxEnabled && rx.routed.arr && !rx.muted.arr;
-    const depOn = rxEnabled && rx.routed.dep && !rx.muted.dep;
+    const arrAllowed = (rx.listen.arr !== "off");
+    const depAllowed = (rx.listen.dep !== "off");
+    const arrOn = rxEnabled && arrAllowed && rx.routed.arr && !rx.muted.arr;
+    const depOn = rxEnabled && depAllowed && rx.routed.dep && !rx.muted.dep;
     rx.graphs.arr.out.gain.value = arrOn ? arrVol*master : 0;
     rx.graphs.dep.out.gain.value = depOn ? depVol*master : 0;
   };
-  $("rxMasterVol").addEventListener("input", applyRxGains);
-  $("rxArrVol").addEventListener("input", applyRxGains);
-  $("rxDepVol").addEventListener("input", applyRxGains);
+  ["rxMasterVol","rxArrVol","rxDepVol"].forEach(id => $(id).addEventListener("input", applyRxGains));
+
+  $("rxArrListen").addEventListener("change", ()=>{ rx.listen.arr = $("rxArrListen").value; saveSettings(); applyRxGains(); });
+  $("rxDepListen").addEventListener("change", ()=>{ rx.listen.dep = $("rxDepListen").value; saveSettings(); applyRxGains(); });
 
   $("rxArrMute").addEventListener("click", ()=>{
     rx.muted.arr = !rx.muted.arr;
@@ -837,32 +1029,29 @@ loadSettings();
   });
 
   const applyReceiverRouting = ()=>{
-    rx.routed.arr = (route.arrGate === rx.gate);
-    rx.routed.dep = (route.depGate === rx.gate);
-
+    rx.routed.arr = route.arrGates.has(rx.gate);
+    rx.routed.dep = route.depGates.has(rx.gate);
     $("rxGateTitle").textContent = "Gate " + rx.gate;
     $("rxArrState").textContent = rx.routed.arr ? "ON" : "OFF";
     $("rxDepState").textContent = rx.routed.dep ? "ON" : "OFF";
-    $("rxArrHint").textContent = rx.routed.arr ? `Routed to Gate ${rx.gate}` : `Not routed (Arrivals → Gate ${route.arrGate})`;
-    $("rxDepHint").textContent = rx.routed.dep ? `Routed to Gate ${rx.gate}` : `Not routed (Departures → Gate ${route.depGate})`;
-
+    $("rxArrHint").textContent = rx.routed.arr ? `Routed to Gate ${rx.gate}` : `Not routed (Arrivals → ${[...route.arrGates].sort().map(g=>"G"+g).join("+")})`;
+    $("rxDepHint").textContent = rx.routed.dep ? `Routed to Gate ${rx.gate}` : `Not routed (Departures → ${[...route.depGates].sort().map(g=>"G"+g).join("+")})`;
     setDot($("routeDot"), true);
-    $("routeText").textContent = `Route: Arr→G${route.arrGate} / Dep→G${route.depGate}`;
+    $("routeText").textContent = `Route: Arr→${[...route.arrGates].sort().join("+")} / Dep→${[...route.depGates].sort().join("+")}`;
     applyRxGains();
   };
 
   const setRxGate = (g)=>{
     rx.gate = clamp(parseInt(g,10)||1, 1, 4);
     $("rxGate").value = String(rx.gate);
-    localStorage.setItem("clb_rxGate", String(rx.gate));
-    // optional: tell sender which gate this device is on
+    ssSet("clb_rxGate", String(rx.gate));
+    saveSettings();
     if (senderId && ws && ws.readyState===1){
       wsSend({ type:"signal", room: wsRoom, to: senderId, from: wsId, data: { kind:"gateSelect", gate: rx.gate } });
     }
     applyReceiverRouting();
   };
   $("rxGate").addEventListener("change", ()=>setRxGate($("rxGate").value));
-  setRxGate($("rxGate").value);
 
   $("btnRxPlay").addEventListener("click", async ()=>{
     if(!audioArmed) await armAudio();
@@ -872,84 +1061,38 @@ loadSettings();
     log("Receiver playback enabled.");
   });
 
-  // Sender: routing UI -> broadcast route updates
-// 1. La variable de estado (solo una vez)
-// 1. La variable de estado (solo una vez)
-
-// 2. La función de actualización de interfaz
-function renderRouteUIStatus() {
-    route.arrGate = clamp(parseInt($("arrGate").value, 10) || 1, 1, 4);
-    route.depGate = clamp(parseInt($("depGate").value, 10) || 1, 1, 4);
-    
-    if (typeof renderRouteStatus === "function") renderRouteStatus();
-    broadcastRoute(); 
-    if (typeof applyReceiverRouting === "function") applyReceiverRouting();
-}
-
-  // --- Función faltante para guardar configuración ---
-  const saveSettings = () => {
-    const isSender = (role === "sender");
-    const sig = (isSender ? $("sigUrlSender").value : $("sigUrlReceiver").value).trim();
-    localStorage.setItem("clb_sig", sig);
-    
-    const room = (isSender ? $("roomSender").value : $("roomReceiver").value).trim() || "clb360";
-    localStorage.setItem("clb_room", room);
-    
-    const ice = (isSender ? $("iceSender").value : $("iceReceiver").value);
-    localStorage.setItem("clb_ice", ice);
-
-    localStorage.setItem("clb_arrGate", $("arrGate").value);
-    localStorage.setItem("clb_depGate", $("depGate").value);
-    localStorage.setItem("clb_rxGate", $("rxGate").value);
-    console.log("Settings saved to localStorage");
-  };
-
-  // --- Escuchadores para autoguardado ---
-  ["sigUrlSender","sigUrlReceiver","roomSender","roomReceiver","iceSender","iceReceiver","arrGate","depGate","rxGate"].forEach(id => {
-    if($(id)) $(id).addEventListener("change", saveSettings);
-  });
-// 3. La función de envío (LA QUE ESTABA DUPLICADA)
-function broadcastRoute() {
-    wsSend({
-        type: "signal",
-        to: "all",
-        data: { kind: "route", arrGate: route.arrGate, depGate: route.depGate }
-    });
-}
-  // Sender: WebRTC one-to-many
-  const tx = {
-    peers: new Map(), // rid -> {pc, dc}
-    broadcasting: false,
-  };
-
+  const tx = { peers: new Map(), broadcasting: false };
   const renderListenerList = ()=>{
     const n = tx.peers.size;
     setDot($("rxDot"), n>0);
     $("rxText").textContent = "Receivers: " + n;
-    if (!n){
-      $("listenerList").textContent = "No receivers connected yet.";
-      return;
-    }
+    if (!n){ $("listenerList").textContent = "No receivers connected yet."; return; }
     const items = Array.from(tx.peers.keys()).map(id => `Receiver ${id}`);
     $("listenerList").innerHTML = items.map(x => `<span class="badge">${x}</span>`).join(" ");
   };
+
+  const sendRouteToPeer = (rid, p)=>{
+    const payload = { type:"route", arrGates:[...route.arrGates], depGates:[...route.depGates] };
+    try{ if (p.dc && p.dc.readyState==="open") p.dc.send(JSON.stringify(payload)); }catch{}
+    if (ws && ws.readyState===1){
+      wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"route", arrGates: payload.arrGates, depGates: payload.depGates } });
+    }
+  };
+  function broadcastRoute(){ for (const [rid, p] of tx.peers) sendRouteToPeer(rid, p); }
 
   const startSender = async ()=>{
     if (tx.broadcasting) return;
     saveSettings();
     if(!audioArmed) await armAudio();
     buildSenderGraph();
-
     const url = $("sigUrlSender").value.trim() || defaultSigUrl();
     const room = $("roomSender").value.trim() || "clb360";
     await wsConnect(url, room, "sender", "Sender");
     wsRoom = room;
-
     tx.broadcasting = true;
     $("btnStart").disabled = true;
     $("btnStop").disabled = false;
     $("txState").textContent = `Broadcasting • room ${room}`;
-    log("Sender started", {room});
     broadcastRoute();
   };
 
@@ -975,60 +1118,34 @@ function broadcastRoute() {
     const ice = $("iceSender").value;
     const turn = $("turnSender").value;
     const iceServers = iceServersFor(ice, turn);
-
     const pc = new RTCPeerConnection({ iceServers });
-    pc.onicecandidate = (e)=>{
-      if (!e.candidate) return;
-      wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"candidate", candidate: e.candidate } });
-    };
-    pc.onconnectionstatechange = ()=>log("TX", rid, "state", pc.connectionState);
-
+    pc.onicecandidate = (e)=>{ if (!e.candidate) return; wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"candidate", candidate: e.candidate } }); };
     const dc = pc.createDataChannel("meta");
-    dc.onopen = ()=>{
-      try{ dc.send(JSON.stringify({ type:"route", arrGate: route.arrGate, depGate: route.depGate })); }catch{}
-    };
-
+    dc.onopen = ()=>sendRouteToPeer(rid, { dc });
     const arrTrack = src.arr.streamDest.stream.getAudioTracks()[0];
     const depTrack = src.dep.streamDest.stream.getAudioTracks()[0];
     pc.addTransceiver(arrTrack, { direction:"sendonly", streams:[src.arr.streamDest.stream] });
     pc.addTransceiver(depTrack, { direction:"sendonly", streams:[src.dep.streamDest.stream] });
-
     const offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
     wsSend({ type:"signal", room: wsRoom, to: rid, from: wsId, data: { kind:"offer", sdp: pc.localDescription } });
-
     tx.peers.set(rid, { pc, dc });
     renderListenerList();
   };
 
   const handleReceiverLeft = (rid)=>{
     const p = tx.peers.get(rid);
-    if (p){
-      try{ p.dc?.close(); }catch{}
-      try{ p.pc?.close(); }catch{}
-      tx.peers.delete(rid);
-      renderListenerList();
-    }
+    if (p){ try{ p.dc?.close(); }catch{} try{ p.pc?.close(); }catch{} tx.peers.delete(rid); renderListenerList(); }
   };
 
   const handleTxSignal = async (from, data)=>{
     const p = tx.peers.get(from);
     if (!p) return;
-    if (data.kind==="answer"){
-      try{ await p.pc.setRemoteDescription(data.sdp); }catch(e){ log("TX answer err:", e.message); }
-      return;
-    }
-    if (data.kind==="candidate"){
-      try{ await p.pc.addIceCandidate(data.candidate); }catch{}
-      return;
-    }
-    if (data.kind==="gateSelect"){
-      log("Receiver", from, "selected gate", data.gate);
-      return;
-    }
+    if (data.kind==="answer"){ try{ await p.pc.setRemoteDescription(data.sdp); }catch(e){ log("TX answer err:", e.message); } return; }
+    if (data.kind==="candidate"){ try{ await p.pc.addIceCandidate(data.candidate); }catch{} return; }
+    if (data.kind==="gateSelect"){ return; }
   };
 
-  // Receiver side WebRTC
   const rxConnect = async ()=>{
     if (rx.connected) return;
     saveSettings();
@@ -1037,12 +1154,10 @@ function broadcastRoute() {
     rebuildRxGraphs();
     rxEnabled = false;
     applyReceiverRouting();
-
     const url = $("sigUrlReceiver").value.trim() || defaultSigUrl();
     const room = $("roomReceiver").value.trim() || "clb360";
     await wsConnect(url, room, "receiver", "Receiver");
     wsRoom = room;
-
     rx.connected = true;
     $("btnRxConnect").disabled = true;
     $("btnRxDisconnect").disabled = false;
@@ -1055,20 +1170,17 @@ function broadcastRoute() {
     $("btnRxConnect").disabled = false;
     $("btnRxDisconnect").disabled = true;
     $("btnRxPlay").disabled = true;
-
     try{ rx.pc?.close(); }catch{}
     rx.pc = null;
     rx.trackCount = 0;
     rx.nodes.arrSrc = null;
     rx.nodes.depSrc = null;
     rxEnabled = false;
-
     $("rxState").textContent = "Idle";
     setDot($("rxPcDot"), false);
     $("rxPcText").textContent = "PC: Not connected";
     setDot($("routeDot"), false);
     $("routeText").textContent = "Route: —";
-
     if (closeWs && ws){ try{ ws.close(); }catch{} }
   }
 
@@ -1079,12 +1191,8 @@ function broadcastRoute() {
     const ice = $("iceReceiver").value;
     const turn = $("turnReceiver").value;
     const iceServers = iceServersFor(ice, turn);
-
     rx.pc = new RTCPeerConnection({ iceServers });
-    rx.pc.onicecandidate = (e)=>{
-      if (!e.candidate || !senderId) return;
-      wsSend({ type:"signal", room: wsRoom, to: senderId, from: wsId, data: { kind:"candidate", candidate: e.candidate } });
-    };
+    rx.pc.onicecandidate = (e)=>{ if (!e.candidate || !senderId) return; wsSend({ type:"signal", room: wsRoom, to: senderId, from: wsId, data: { kind:"candidate", candidate: e.candidate } }); };
     rx.pc.onconnectionstatechange = ()=>{
       const ok = (rx.pc.connectionState==="connected");
       setDot($("rxPcDot"), ok);
@@ -1096,9 +1204,12 @@ function broadcastRoute() {
         const m = safeJson(e.data);
         if (!m) return;
         if (m.type==="route"){
-          route.arrGate = clamp(parseInt(m.arrGate,10)||1, 1, 4);
-          route.depGate = clamp(parseInt(m.depGate,10)||1, 1, 4);
-          renderRouteStatus();
+          route.arrGates = new Set((m.arrGates||[]).map(n=>parseInt(n,10)).filter(n=>[1,2,3,4].includes(n)));
+          route.depGates = new Set((m.depGates||[]).map(n=>parseInt(n,10)).filter(n=>[1,2,3,4].includes(n)));
+          enforceGrouping();
+          ssSet("clb_arrGates", [...route.arrGates].join(","));
+          ssSet("clb_depGates", [...route.depGates].join(","));
+          syncMatrixUI();
           applyReceiverRouting();
         }
       };
@@ -1124,19 +1235,17 @@ function broadcastRoute() {
     await rx.pc.setLocalDescription(answer);
     wsSend({ type:"signal", room: wsRoom, to: senderId, from: wsId, data: { kind:"answer", sdp: rx.pc.localDescription } });
     $("rxState").textContent = "Answer sent; connecting…";
-    // optional: tell sender which gate this receiver is on
     wsSend({ type:"signal", room: wsRoom, to: senderId, from: wsId, data: { kind:"gateSelect", gate: rx.gate } });
   };
 
-  const handleRxCandidate = async (cand)=>{
-    if (!rx.pc) return;
-    try{ await rx.pc.addIceCandidate(cand); }catch{}
-  };
-
-  const handleRxRoute = (arrGate, depGate)=>{
-    route.arrGate = clamp(parseInt(arrGate,10)||1, 1, 4);
-    route.depGate = clamp(parseInt(depGate,10)||1, 1, 4);
-    renderRouteStatus();
+  const handleRxCandidate = async (cand)=>{ if (!rx.pc) return; try{ await rx.pc.addIceCandidate(cand); }catch{} };
+  const handleRxRoute = (arrGates, depGates)=>{
+    route.arrGates = new Set((arrGates||[]).map(n=>parseInt(n,10)).filter(n=>[1,2,3,4].includes(n)));
+    route.depGates = new Set((depGates||[]).map(n=>parseInt(n,10)).filter(n=>[1,2,3,4].includes(n)));
+    enforceGrouping();
+    ssSet("clb_arrGates", [...route.arrGates].join(","));
+    ssSet("clb_depGates", [...route.depGates].join(","));
+    syncMatrixUI();
     applyReceiverRouting();
   };
 
@@ -1145,7 +1254,6 @@ function broadcastRoute() {
       wsId = msg.id;
       wsRoom = msg.room;
       if (msg.senderId) senderId = msg.senderId;
-      log("WS joined", {id:wsId, role:msg.role, room:wsRoom, senderId});
       return;
     }
     if (msg.type==="sender-ready" && role==="receiver"){
@@ -1168,13 +1276,12 @@ function broadcastRoute() {
       } else {
         if (data.kind==="offer") await handleRxOffer(from, data.sdp);
         else if (data.kind==="candidate") await handleRxCandidate(data.candidate);
-        else if (data.kind==="route") handleRxRoute(data.arrGate, data.depGate);
+        else if (data.kind==="route") handleRxRoute(data.arrGates, data.depGates);
       }
       return;
     }
   }
 
-  // meters loop
   function tickMeters(){
     if (!ctx || ctx.state!=="running") return;
     for (const k of ["arr","dep"]){
@@ -1193,7 +1300,11 @@ function broadcastRoute() {
     }
     requestAnimationFrame(tickMeters);
   }
-  // Initialize UI
+
+  rx.listen.arr = $("rxArrListen").value || "auto";
+  rx.listen.dep = $("rxDepListen").value || "auto";
+  setRxGate($("rxGate").value);
+
   setRole(role);
   $("btnStop").disabled = true;
   $("btnRxDisconnect").disabled = true;
@@ -1201,13 +1312,10 @@ function broadcastRoute() {
   $("btnStart").disabled = true;
   syncSenderButtons();
   applyReceiverRouting();
-  // initial route status from dropdowns
-  route.arrGate = clamp(parseInt($("arrGate").value,10)||1, 1, 4);
-  route.depGate = clamp(parseInt($("depGate").value,10)||1, 1, 4);
   renderRouteStatus();
-  applyReceiverRouting();
+  saveSettings();
 
-  log("Ready. Click once to enable audio. Sender: route Arr/Dep via dropdowns. Receiver: select gate, connect, enable play.");
+  log("Ready. Tap once to enable audio. Sender: routing matrix. Receiver: select gate, connect, Enable & Play.");
 })();
 </script>
 </body>
